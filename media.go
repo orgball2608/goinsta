@@ -8,6 +8,7 @@ import (
 	neturl "net/url"
 	"os"
 	"path"
+	"path/filepath"
 	"regexp"
 	"strings"
 
@@ -46,7 +47,7 @@ type Item struct {
 	DeviceTimestamp   int64       `json:"device_timestamp"`
 	FacepileTopLikers []struct {
 		FollowFrictionType float64 `json:"follow_friction_type"`
-		FullNeme           string  `json:"ful_name"`
+		FullNeme           string  `json:"full_name"`
 		IsPrivate          bool    `json:"is_private"`
 		IsVerified         bool    `json:"is_verified"`
 		Pk                 float64 `json:"pk"`
@@ -666,7 +667,7 @@ func (item *Item) changeLike(endpoint string) error {
 // }
 func (item *Item) DownloadTo(dst string) error {
 	insta := item.insta
-	folder, file := path.Split(dst)
+	folder, file := filepath.Split(dst)
 
 	if err := os.MkdirAll(folder, 0o777); err != nil {
 		return err
